@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>
+            채취일을 입력하세요
+        </h1>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            
+            <p>선택일 : <input type="text" id="date"></p>
+
+            (확진자, 수동감시자) 입사 가능일 <p id = "month1"></p>
+    
+            (확진자) 등교 가능일 <p id = "month2"></p>
+
+    <script type="text/javascript">
+    $(function () {
+    $("#date").datepicker({
+        dateFormat:"yy/mm/dd",
+        dayNamesMin:["일","월","화","수","목","금","토"],
+        monthNames:["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+        onSelect:function(d){
+            
+            var arr=d.split("/");
+            var year=Number(arr[0]);
+            var month=Number(arr[1]);
+            var day=Number(arr[2]);
+            
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+                if (day + 9 > 32){
+                    var month1 = month + 1;
+                    var day1 = day + 9 - 31;
+                }
+                else{
+                    var month1 = month;
+                    var day1 = day + 9;
+                }
+                
+                if (day + 6 > 32){
+                    var month2 = month + 1;
+                    var day2 = day + 6 - 31;
+                }
+                else{
+                    var month2 = month;
+                    var day2 = day + 6;
+                }
+            }
+            else if (month == 4 || month == 6 || month == 9 || month == 11){
+                if (day + 9 > 31){
+                    var month1 = month + 1;
+                    var day1 = day + 9 - 30;
+                }
+                else{
+                    var month1 = month;
+                    var day1 = day + 9;
+                }
+                
+                if (day + 6 > 32){
+                    var month2 = month + 1;
+                    var day2 = day + 6 - 30;
+                }
+                else{
+                    var month2 = month;
+                    var day2 = day + 6;
+                }
+            }
+            else{
+                if (day + 9 > 29){
+                    var month1 = month + 1;
+                    var day1 = day + 9 - 28;
+                }
+                else{
+                    var month1 = month;
+                    var day1 = day + 9;
+                }
+                
+                if (day + 6 > 29){
+                    var month2 = month + 1;
+                    var day2 = day + 6 - 28;
+                }
+                else{
+                    var month2 = month;
+                    var day2 = day + 6;
+                }
+            }
+            
+            
+            $("#month1").text(month1 + "월 " + day1 + "일");
+            $("#month2").text(month2 + "월 " + day2 + "일");
+            
+            var date=new Date($("#date").datepicker({dateFormat:"yy/mm/dd"}).val());
+            
+            week=new Array("일","월","화","수","목","금","토");
+            $("#mydate").text(week[date.getDay()]);
+        }
+    });
+    
+});
+        </script>
+    </body>
+</html>
